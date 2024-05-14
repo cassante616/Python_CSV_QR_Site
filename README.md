@@ -1,0 +1,1 @@
+Site feito para automatizar alguns processos maçantes dentro da empreasa Baldussi Telecom. Esse script tem dois escopos: Geração de uma planilha .CSV personalizada e geração de QRcodes. Todo o funcionamento do servidor foi feito em cima do framework FLASK.
