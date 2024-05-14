@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Ramais</title>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='csv_icon.png') }}">
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+            background-color: #282a36;
+            color: #f8f8f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #bd93f9;
+        }
+
+        form {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #44475a;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #f8f8f2;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #6272a4;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #44475a;
+            color: #f8f8f2;
+        }
+
+        input[type="submit"] {
+            background-color: #50fa7b;
+            color: #282a36;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #8be9fd;
+        }
+
+        .custom-file-upload {
+            text-align: center;
+            cursor: pointer;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            width: 100%;
+            border: 2px dashed #999; /* Borda tracejada */
+        }
+
+        .custom-file-upload:hover {
+            border-color: #666; /* Cor da borda ao passar o mouse */
+        }
+
+        .error-message {
+            color: #ff5555;
+            margin-top: 10px;
+            text-align: center;
+            border: none
+        }
+
+        .aviso{
+            color: #f8f8f2;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        h2{
+            color: #f8f8f2;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: medium;
+        }
+
+        .obr{
+            color: #f8f8f2;
+            text-align: start;
+            font-size: 10px;
+            margin-top: 8px;
+        }
+
+        .marca {
+            text-align: center;
+        }
+
+        .marca a {
+            all: unset;
+            cursor: pointer;
+        }
+
+        .marca a:hover {
+            color: #bd93f9
+        }
+    </style>
+</head>
+<body>
+    <h1>Gerador de Ramais CSV</h1>
+    <form action="/csv" method="POST">
+        
+        <h2>Formulário para gerar um arquivo CSV para importação de ramais cloud10</h2>
+
+        <label for="did">Digite o DID dos ramais (apenas números)*</label>
+        <input type="text" id="did" name="did" maxlength="14" placeholder="Ex: 41 3300-0009" pattern="[0-9- ]+" title="Apenas números, espaços e traços são permitidos" required>
+
+        <label for="quantidade">Digite a quantidade de ramais (apenas números)*</label>
+        <input type="text" id="quantidade" maxlength="3" placeholder="Ex: 15" name="quantidade" pattern="[0-9]+" title="Apenas números são permitidos" required>
+
+        <label for="faixa">Digite o número inicial da faixa (apenas números)</label>
+        <input type="text" id="faixa" placeholder="Ex: 22" maxlength="4" name="faixa" pattern="[0-9]+" title="Apenas números são permitidos">
+
+        <input type="submit" value="Gerar CSV">
+        <div class="obr">*Obrigatório</div>
+
+        <div class="aviso">-> Alterar o nome do grupo de ramais para "PRINCIPAL" no PABX!</div>
+        
+    </form>
+<script>
+        // Função para formatar o número de telefone
+        function formatarNumeroTelefone(input) {
+            // Remove tudo que não for dígito
+            let numeroTelefone = input.value.replace(/\D/g, '');
+
+            // Formatar o DDD e o número de telefone
+            if (numeroTelefone.length >= 2) {
+                // Adiciona um espaço após os dois primeiros dígitos (DDD)
+                input.value = `(${numeroTelefone.substring(0, 2)})`;
+
+                // Se o número tiver pelo menos 6 dígitos (DDD + 4 números), adiciona um espaço e um traço
+                if (numeroTelefone.length >= 6) {
+                    input.value += ` ${numeroTelefone.substring(2, 6)}-${numeroTelefone.substring(6)}`;
+                } else {
+                    // Se não, adiciona apenas os números restantes
+                    input.value += ` ${numeroTelefone.substring(2)}`;
+                }
+            }
+        }
+
+        // Adiciona um ouvinte de evento para chamar a função de formatação quando uma tecla é liberada
+        document.getElementById('did').addEventListener('keyup', function() {
+            formatarNumeroTelefone(this);
+        });
+    </script>
+    
+    <h1>Gerador de QRCode</h1>
+    <form action="/qrcode" method="POST">
+
+        <h2>Formulário para gerar um(1) QRcode de um ramal em .PNG</h2>
+
+        <label for="login">Login do ramal*</label>
+        <input type="text" id="login" maxlength="20" name="login" placeholder="Ex: baldussi-17" required>
+
+        <label for="senha">Senha SIP do ramal*</label>
+        <input type="text" id="senha" maxlength="40" name="senha" placeholder="Ex: OTK1KLr2xd" required>
+
+        <input type="submit" value="Gerar QRCODE">
+        
+        <div class="obr">*Obrigatório</div>
+    </form> 
+
+    <div class="aviso" style="margin-bottom: 30px;">OU</div>
+
+    <form action="/qrcode_csv" method="POST" enctype="multipart/form-data" style="margin-bottom: 100px;">
+        <h2>Formulário para selecionar um arquivo .CSV* e gerar vários QRcodes em .PNG (max: 100)</h2>
+
+        <label for="arquivo" class="custom-file-upload">
+            <span id="label-text">Selecionar Arquivo</span>
+            <input type="file" id="arquivo" name="arquivo" style="display: none;" onchange="exibirNomeArquivo()"
+            accept=".csv" required>
+        </label>
+
+        <input type="submit" value="Gerar vários QRCODES" >
+        <div class="obr">*Usar o mesmo arquivo de exportação do cloud10</div>
+        
+        <script>
+            function exibirNomeArquivo() {
+                var input = document.getElementById('arquivo');
+                var label = document.getElementById('label-text');
+        
+                if (input.files.length > 0) {
+                    label.textContent = input.files[0].name;
+                } else {
+                    label.textContent = 'Selecionar Arquivo';
+                }
+            }
+        </script>
+    </form>
+
+    <div class="marca">
+        <a href="https://www.linkedin.com/in/vitor-cassante-811315274/" target="_blank">© 2024 Vitor Cassante. All rights reserved</a>
+    </div>
+
+</body>
+</html>

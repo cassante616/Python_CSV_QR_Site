@@ -1,0 +1,11 @@
+Tipo do ramal,Número do Ramal,Usuário de autenticação,Senha Sip,Nome do ramal,Grupo de Ramais,Caller ID,Centro de Custo,Plano de Discagem,Grupo música de espera,Puxar Chamadas,Habilitar Timer?,Habilitar BLF?,Escutar chamadas?,Gravar Chamada?,Bloquear Ramal?,Codigo de Área
+PABX,10,,,Ramal 10,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
+PABX,11,,,Ramal 11,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
+PABX,12,,,Ramal 12,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
+PABX,13,,,Ramal 13,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
+PABX,14,,,Ramal 14,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
+PABX,15,,,Ramal 15,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
+PABX,16,,,Ramal 16,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
+PABX,17,,,Ramal 17,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
+PABX,18,,,Ramal 18,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
+PABX,19,,,Ramal 19,PRINCIPAL,4133000009,,padrao,,Puxar chamadas do mesmo Grupo,não,Sim,não,Sim,não,41
