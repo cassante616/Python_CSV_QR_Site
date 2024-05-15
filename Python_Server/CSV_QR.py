@@ -1,23 +1,23 @@
 from flask import Flask, request, render_template, send_file, after_this_request
 import os
 import csv
-from time import sleep
 import qrcode as qr
 
 # Cria a aplicação Flask
 app = Flask(__name__)
 
 # Configuração do diretório para salvar os arquivo CSV para criação dos QRcodes
-UPLOAD_FOLDER = "/home/vitorsup/Projects_Python/Python_Server/CSV_QRcodes/"
+UPLOAD_FOLDER = os.path.expanduser("~/Projects_Python/Python_Server/CSV_QRcodes/")
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # path para criar os QRcodes
-path_qrcodes = "/home/vitorsup/Projects_Python/Python_Server/QRcodes/QRcode/"
+path_qrcodes = os.path.expanduser("~/Projects_Python/Python_Server/QRcodes/QRcode/")
 
 # Caminho para criar o arquivo CSV dos ramais
-path = "/home/vitorsup/Projects_Python/Python_Server/CSV/ramaiscloud10.csv"
+path = os.path.expanduser("~/Projects_Python/Python_Server/CSV/ramaiscloud10.csv")
 
-path_zip = "/home/vitorsup/Projects_Python/Python_Server/QRcodes/QR_codes"
+# Caminho do arquivo zip a ser criado
+path_zip = os.path.expanduser("~/Projects_Python/Python_Server/QRcodes/QR_codes")
 
 # Gera o HTML na página principal
 @app.route("/")
@@ -90,7 +90,6 @@ def form_qrcode():
     # Executa esse bloco depois de enviar os arquivos de volta para o cliente
     @after_this_request
     def remove_qrcode(response):
-        sleep(1)
         os.remove(path_qrcodes + login_ramal + ".png")
         return response
 
